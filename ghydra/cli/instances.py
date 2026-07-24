@@ -29,14 +29,14 @@ def list_instances(ctx):
     Example:
         ghydra instances list
     """
-    client = ctx.obj['client']
+    _ = ctx.obj['client']
     formatter = ctx.obj['formatter']
     config = ctx.obj['config']
 
     try:
         # For CLI, we implement simple discovery by trying to connect to known ports
         # and collecting successful connections
-        instances_data = _discover_instances(client, config)
+        instances_data = _discover_instances(config)
 
         output = formatter.format_instances_list(instances_data)
 
@@ -268,7 +268,7 @@ def current(ctx):
 
 # Helper functions for instance discovery
 
-def _discover_instances(client, config):
+def _discover_instances(config):
     """Discover instances on default host using quick scan."""
     return _discover_instances_on_host(
         config.default_host,
