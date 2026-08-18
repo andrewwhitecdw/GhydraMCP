@@ -323,7 +323,7 @@ def _discover_instances_on_host(host, port_range, config):
                         "api_version": version_data.get("result", {}).get("api_version", "unknown")
                     }
 
-                except:
+                except (GhidraError, KeyError, AttributeError, TypeError):
                     # Program info failed, but plugin responded
                     return {
                         "port": port,
@@ -334,7 +334,7 @@ def _discover_instances_on_host(host, port_range, config):
                         "api_version": version_data.get("result", {}).get("api_version", "unknown")
                     }
 
-        except:
+        except GhidraError:
             # Connection failed, skip this port
             return None
 
